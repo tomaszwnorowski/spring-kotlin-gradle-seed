@@ -1,0 +1,80 @@
+[versions]
+jvm = "17"
+jooq = "3.18.6"
+testcontainers = "1.19.0"
+flyway = "9.21.1"
+kotlin = "1.9.0"
+ktlint = "0.49.1"
+postgresql = "15.0"
+spring-boot = "3.1.2"
+spring-cloud = "2022.0.3"
+
+[libraries]
+# bom
+bom-spring-cloud = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "spring-cloud" }
+bom-testcontainers = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
+
+# build plugin
+build-plugin-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version = "1.23.1" }
+build-plugin-jib = { module = "com.google.cloud.tools:jib-gradle-plugin", version = "3.3.2" }
+build-plugin-kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+build-plugin-kotlin-spring = { module = "org.jetbrains.kotlin.plugin.spring:org.jetbrains.kotlin.plugin.spring.gradle.plugin", version.ref = "kotlin" }
+build-plugin-openapi = { module = "org.openapitools:openapi-generator-gradle-plugin", version = "7.0.0" }
+build-plugin-spotless = { module = "com.diffplug.spotless:spotless-plugin-gradle", version = "6.21.0" }
+build-plugin-spring-boot = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "spring-boot" }
+build-plugin-spring-dependency-management = { module = "io.spring.gradle:dependency-management-plugin", version = "1.1.2" }
+
+# cache
+cache-caffeine = { module = "com.github.ben-manes.caffeine:caffeine" }
+
+# database
+database-flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
+database-jooq-core = { module = "org.jooq:jooq", version.ref = "jooq" }
+database-jooq-codegen = { module = "org.jooq:jooq-codegen", version.ref = "jooq" }
+database-jooq-meta = { module = "org.jooq:jooq-meta", version.ref = "jooq" }
+database-postgresql-driver = { module = "org.postgresql:postgresql", version = "42.6.0" }
+
+# dev
+development-springboot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+
+# json
+json-jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
+json-jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" }
+
+# kotlin
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
+kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor" }
+
+# logging
+logging-kotlin = { module = "io.github.microutils:kotlin-logging-jvm", version = "3.0.4" }
+logging-janino = { module = "org.codehaus.janino:janino" }
+logging-json = { module = "net.logstash.logback:logstash-logback-encoder", version = "7.2" }
+logging-logback = { module = "ch.qos.logback:logback-classic" }
+
+# observability
+observability-micrometer-registry-prometheus = { module = "io.micrometer:micrometer-registry-prometheus" }
+observability-micrometer-observation-test = { module = "io.micrometer:micrometer-observation-test" }
+
+# spring boot starters
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-starter-cache = { module = "org.springframework.boot:spring-boot-starter-cache" }
+spring-boot-starter-jooq = { module = "org.springframework.boot:spring-boot-starter-jooq" }
+spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
+spring-boot-starter-json = { module = "org.springframework.boot:spring-boot-starter-json" }
+
+# spring cloud starters
+spring-cloud-starter = { module = "org.springframework.cloud:spring-cloud-starter" }
+
+# sql
+sql-formatter = { module = "com.github.vertical-blank:sql-formatter", version = "2.0.4" }
+
+# test
+test-spring-security = { module = "org.springframework.security:spring-security-test" }
+test-springmockk = { module = "com.ninja-squad:springmockk", version = "4.0.2" }
+test-testcontainers-core = { module = "org.testcontainers:testcontainers", version.ref = "testcontainers" }
+test-testcontainers-junit = { module = "org.testcontainers:junit-jupiter", version.ref = "testcontainers" }
+test-testcontainers-postgresql = { module = "org.testcontainers:postgresql", version.ref = "testcontainers" }
+test-springboot-testcontainers = { module = "org.springframework.boot:spring-boot-testcontainers" }
