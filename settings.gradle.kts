@@ -13,3 +13,4 @@ plugins {
 
 rootProject.name = "spring-kotlin-gradle-seed"
 include("app")
+include("test")

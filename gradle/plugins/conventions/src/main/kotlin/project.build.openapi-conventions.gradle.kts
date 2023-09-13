@@ -1,6 +1,4 @@
 plugins {
-    kotlin("jvm")
-
     id("org.openapi.generator")
 }
 

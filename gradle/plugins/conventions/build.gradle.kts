@@ -26,6 +26,7 @@ dependencies {
     implementation(libs.build.plugin.spotless)
     implementation(libs.build.plugin.detekt)
 
-    // sql formatter
-    implementation(project(":sql-formatter"))
+    // sql
+    runtimeOnly(project(":sql-formatter"))
+    runtimeOnly(project(":flyway-jooq-codegen"))
 }

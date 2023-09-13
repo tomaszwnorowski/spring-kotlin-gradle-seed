@@ -1,7 +1,8 @@
 plugins {
     id("project.build.spring-boot-application-conventions")
+    id("project.build.test-conventions")
     id("project.build.openapi-conventions")
-    id("project.build.flyway-jooq-codegen")
+    id("project.build.sql-codegen-conventions")
 }
 
 repositories {
