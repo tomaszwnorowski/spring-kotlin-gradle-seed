@@ -5,10 +5,6 @@ plugins {
     id("project.build.sql-codegen-conventions")
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation(libs.spring.boot.starter.jooq)
     implementation(libs.database.flyway.core)

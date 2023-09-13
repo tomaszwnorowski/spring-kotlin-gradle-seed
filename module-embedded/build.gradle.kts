@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    api(libs.spring.boot.starter.test)
+    api(project(":module-api"))
 }
