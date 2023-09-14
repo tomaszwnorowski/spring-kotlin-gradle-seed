@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    api(project(":core"))
+    api(libs.id.tsid)
 }

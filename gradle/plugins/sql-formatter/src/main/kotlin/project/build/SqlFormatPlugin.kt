@@ -14,7 +14,7 @@ class SqlFormatPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             val scripts =
-                files(layout.projectDirectory.dir("src/main/resources")).filter { it.endsWith(".sql") }
+                files(layout.projectDirectory.dir("src/main/resources/db/migration")).filter { it.endsWith(".sql") }
 
             val checkTask = task("sqlFormatCheck") {
                 inputs.files(scripts)

@@ -27,6 +27,6 @@ dependencies {
     implementation(libs.build.plugin.detekt)
 
     // sql
-    runtimeOnly(project(":sql-formatter"))
-    runtimeOnly(project(":flyway-jooq-codegen"))
+    implementation(project(":sql-formatter"))
+    implementation(project(":flyway-jooq-codegen"))
 }

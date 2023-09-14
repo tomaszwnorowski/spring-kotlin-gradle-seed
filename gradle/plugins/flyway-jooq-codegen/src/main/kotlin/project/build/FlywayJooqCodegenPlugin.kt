@@ -4,6 +4,7 @@ import org.flywaydb.core.Flyway
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.Directory
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.PathSensitivity
@@ -23,6 +24,7 @@ import org.testcontainers.containers.PostgreSQLContainer
 private const val DEFAULT_DOCKER_IMAGE = "postgres:15.0"
 
 interface FlywayJooqCodegenExtension {
+    val migrationsDir: DirectoryProperty
     val tables: SetProperty<String>
     val packageName: Property<String>
     val dockerImage: Property<String>
@@ -31,11 +33,10 @@ interface FlywayJooqCodegenExtension {
 class FlywayJooqCodegenPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         val extension = target.extensions.create<FlywayJooqCodegenExtension>("flywayJooqCodegenExtension")
-        val inputDir = target.layout.projectDirectory.dir("src/main/resources/db/migration")
         val outputDir = target.layout.buildDirectory.dir("generated/sources/jooq/main/kotlin")
 
         val flywayJooqCodegenTask = target.task("flywayJooqCodegen") {
-            inputs.files(target.files(inputDir).filter { it.endsWith(".sql") })
+            inputs.files(target.files(extension.migrationsDir).filter { it.endsWith(".sql") })
                 .withPropertyName("flyway-migrations")
                 .withPathSensitivity(PathSensitivity.RELATIVE)
                 .ignoreEmptyDirectories()
@@ -46,7 +47,7 @@ class FlywayJooqCodegenPlugin : Plugin<Project> {
             doLast {
                 with(extension) {
                     container(dockerImage.getOrElse(DEFAULT_DOCKER_IMAGE)) {
-                        migrate(inputDir)
+                        migrate(migrationsDir.get())
                         generate(outputDir.get(), tables.get(), packageName.get())
                     }
                 }

@@ -37,6 +37,9 @@ database-postgresql-driver = { module = "org.postgresql:postgresql", version = "
 # dev
 development-springboot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
 
+# id
+id-tsid = { module = "io.hypersistence:hypersistence-tsid", version = "2.1.1" }
+
 # json
 json-jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
 json-jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" }
@@ -67,6 +70,9 @@ spring-boot-starter-json = { module = "org.springframework.boot:spring-boot-star
 
 # spring cloud starters
 spring-cloud-starter = { module = "org.springframework.cloud:spring-cloud-starter" }
+
+# spring framework
+spring-framework-context = { module = "org.springframework:spring-context" }
 
 # sql
 sql-formatter = { module = "com.github.vertical-blank:sql-formatter", version = "2.0.4" }

@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    testImplementation(platform(dependencyFromLibs("bom-testcontainers")))
     testImplementation(project(":test"))
 }
 

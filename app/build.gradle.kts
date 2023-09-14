@@ -1,8 +1,6 @@
 plugins {
     id("project.build.spring-boot-application-conventions")
     id("project.build.test-conventions")
-    id("project.build.openapi-conventions")
-    id("project.build.sql-codegen-conventions")
 }
 
 dependencies {
@@ -18,21 +16,11 @@ dependencies {
     testImplementation(libs.test.testcontainers.postgresql)
 }
 
-openApiGenerate {
-    inputSpec.set("${project.layout.projectDirectory}/src/main/resources/specs/petstore.yaml")
-    modelPackage.set("openapi.petstore.model")
-}
-
-configure<project.build.FlywayJooqCodegenExtension> {
-    packageName.set("jooq.app.codegen")
-    tables.add("car")
-}
-sourceSets {
-    main {
-        kotlin.srcDir(tasks.named("flywayJooqCodegen"))
-        kotlin.srcDir(tasks.named("openApiGenerate"))
-    }
-}
+//openApiGenerate {
+//    inputSpec.set("${project.layout.projectDirectory}/src/main/resources/specs/petstore.yaml")
+//    modelPackage.set("openapi.petstore.model")
+//}
+//
 
 dependencies {
     implementation(libs.spring.boot.starter.webflux)
