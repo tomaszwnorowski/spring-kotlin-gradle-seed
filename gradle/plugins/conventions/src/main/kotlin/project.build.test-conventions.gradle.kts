@@ -1,6 +1,7 @@
 plugins {
     id("project.build.main-conventions")
-    id("project.build.test-conventions")
+
+    jacoco
 }
 
 dependencies {

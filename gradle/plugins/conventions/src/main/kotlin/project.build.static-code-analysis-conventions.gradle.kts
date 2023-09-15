@@ -1,6 +1,7 @@
 plugins {
     id("com.diffplug.spotless")
     id("project.build.sql-formatter")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 spotless {
@@ -32,4 +33,8 @@ spotless {
 
         trimTrailingWhitespace()
     }
+}
+
+detekt {
+    ignoreFailures = true
 }

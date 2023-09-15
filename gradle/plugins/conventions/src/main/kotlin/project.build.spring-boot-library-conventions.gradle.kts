@@ -6,8 +6,5 @@ plugins {
 
     id("io.spring.dependency-management")
     id("project.build.main-conventions")
-    id("project.build.spotless-conventions")
-    id("project.build.detekt-conventions")
-
-    jacoco
+    id("project.build.static-code-analysis-conventions")
 }
