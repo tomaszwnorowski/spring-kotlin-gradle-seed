@@ -1,5 +1,6 @@
 package project.rest
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import org.junit.jupiter.api.Test
@@ -21,6 +22,9 @@ class ResourcesRestControllerTest {
     @Autowired
     private lateinit var mvc: MockMvc
 
+    @Autowired
+    private lateinit var json: ObjectMapper
+
     @MockkBean
     private lateinit var api: ModuleApi
 
@@ -30,15 +34,7 @@ class ResourcesRestControllerTest {
 
         mvc.perform(get("/public/api/v1/resources/${resource.id.toLowerCase()}"))
             .andExpect(status().isOk)
-            .andExpect(
-                content().json(
-                    """
-                {
-                    "id": "${resource.id.toLowerCase()}"
-                }
-                    """.trimIndent(),
-                ),
-            )
+            .andExpect(content().json(json.writeValueAsString(resource.toRest())))
     }
 
     @Test

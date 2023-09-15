@@ -13,7 +13,13 @@ data class RestResource(
     val id: String,
 )
 
-@RestController()
+fun Resource.toRest(): RestResource =
+    RestResource(id.toLowerCase())
+
+fun RestResource.toApi(): Resource =
+    Resource(TSID.from(id))
+
+@RestController
 class ResourcesRestController(private val api: ModuleApi) {
 
     @PostMapping("/public/api/v1/resources")
@@ -27,10 +33,4 @@ class ResourcesRestController(private val api: ModuleApi) {
         } else {
             ResponseEntity.notFound().build()
         }
-
-    private fun Resource.toRest(): RestResource =
-        RestResource(id.toLowerCase())
-
-    private fun RestResource.toApi(): Resource =
-        Resource(TSID.from(id))
 }
