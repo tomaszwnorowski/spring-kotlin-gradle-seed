@@ -19,14 +19,41 @@ import project.test.tag.IntegrationTest
 class ModuleEmbeddedTest(@Autowired private val module: ModuleEmbedded) {
 
     @Test
-    fun someTest() {
+    fun `GIVEN valid resource WHEN save THEN insert and return persisted resource`() {
         // given
         val resource = Resource(TSID.fast())
 
         // when
-        module.save(resource)
+        val saved = module.save(resource)
 
         // then
-        assertThat(module.findById(resource.id)).isEqualTo(resource)
+        assertThat(saved).isEqualTo(resource)
+    }
+
+    @Test
+    fun `GIVEN existing resource id WHEN findById THEN return resource`() {
+        // given
+        val resourceId = TSID.fast()
+        // and
+        module.save(Resource(resourceId))
+
+        // when
+        val resource = module.findById(resourceId)
+
+        // then
+        assertThat(resource).isNotNull
+        assertThat(resource!!.id).isEqualTo(resourceId)
+    }
+
+    @Test
+    fun `GIVEN not existing resource id WHEN findById THEN return null`() {
+        // given
+        val resourceId = TSID.fast()
+
+        // when
+        val resource = module.findById(resourceId)
+
+        // then
+        assertThat(resource).isNull()
     }
 }
