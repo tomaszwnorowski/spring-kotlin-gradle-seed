@@ -18,7 +18,7 @@ class ResourcesRestController(private val api: ModuleApi) {
 
     @PostMapping("/public/api/v1/resources")
     fun create(): ResponseEntity<RestResource> =
-        ResponseEntity.ok(api.save(Resource()).toRest())
+        ResponseEntity.ok(api.save(Resource(TSID.fast())).toRest())
 
     @GetMapping("/public/api/v1/resources/{id}")
     fun get(@PathVariable id: String): ResponseEntity<RestResource> =

@@ -5,11 +5,11 @@ plugins {
 
 dependencies {
     api(project(":core"))
+    api(libs.spring.boot.starter.web)
 
     implementation(project(":module-api"))
     runtimeOnly(project(":module-embedded"))
 
-    implementation(libs.spring.boot.starter.web)
     implementation(libs.json.jackson.kotlin)
     implementation(libs.json.jackson.datatype.jsr310)
 
