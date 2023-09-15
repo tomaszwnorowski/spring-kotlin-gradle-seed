@@ -41,7 +41,7 @@ development-springboot-devtools = { module = "org.springframework.boot:spring-bo
 id-tsid = { module = "io.hypersistence:hypersistence-tsid", version = "2.1.1" }
 
 # json
-json-jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
+json-jackson-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
 json-jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" }
 
 # kotlin
@@ -63,10 +63,11 @@ observability-micrometer-observation-test = { module = "io.micrometer:micrometer
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 spring-boot-starter-cache = { module = "org.springframework.boot:spring-boot-starter-cache" }
 spring-boot-starter-jooq = { module = "org.springframework.boot:spring-boot-starter-jooq" }
+spring-boot-starter-json = { module = "org.springframework.boot:spring-boot-starter-json" }
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
 spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
-spring-boot-starter-json = { module = "org.springframework.boot:spring-boot-starter-json" }
 
 # spring cloud starters
 spring-cloud-starter = { module = "org.springframework.cloud:spring-cloud-starter" }
