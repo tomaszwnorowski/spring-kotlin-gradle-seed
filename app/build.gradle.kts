@@ -5,4 +5,9 @@ plugins {
 
 dependencies {
     implementation(project(":rest"))
+
+    testImplementation(project(":test"))
+    testImplementation(libs.spring.boot.starter.webflux)
+    testImplementation(libs.test.testcontainers.core)
+    testImplementation(libs.test.testcontainers.postgresql)
 }
