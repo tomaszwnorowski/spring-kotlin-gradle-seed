@@ -14,14 +14,14 @@ class SqlFormatPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             val scripts =
-                files(layout.projectDirectory.dir("src/main/resources/db/migration")).filter { it.endsWith(".sql") }
+                fileTree(layout.projectDirectory.dir("src/main/resources")).include("**/*.sql")
 
             val checkTask = task("sqlFormatCheck") {
                 inputs.files(scripts)
-                outputs.files(scripts)
+                outputs.upToDateWhen { true }
 
                 doLast {
-                    scripts
+                    inputs.files
                         .map { file -> file to file.readText() }
                         .filterNot { (_, text) -> formatter.format(text, config) == text }
                         .map { (file, _) -> file.path }
@@ -37,7 +37,7 @@ class SqlFormatPlugin : Plugin<Project> {
                 outputs.files(scripts)
 
                 doLast {
-                    scripts.forEach {
+                    inputs.files.forEach {
                         it.writeText(formatter.format(it.readText(), config))
                     }
                 }
