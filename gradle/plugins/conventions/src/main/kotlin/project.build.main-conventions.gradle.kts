@@ -21,6 +21,11 @@ dependencies {
     implementation(enforcedPlatform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 }
 
+java {
+    sourceCompatibility = JavaVersion.toVersion(versionFromLibs("jvm"))
+    targetCompatibility = JavaVersion.toVersion(versionFromLibs("jvm"))
+}
+
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs += "-Xjsr305=strict"
