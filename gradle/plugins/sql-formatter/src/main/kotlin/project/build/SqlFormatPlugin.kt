@@ -43,8 +43,8 @@ class SqlFormatPlugin : Plugin<Project> {
                 }
             }
 
-            tasks.getByName("spotlessCheck").dependsOn(checkTask)
-            tasks.getByName("spotlessApply").dependsOn(applyTask)
+            tasks.getByName("spotlessCheck").finalizedBy(checkTask)
+            tasks.getByName("spotlessApply").finalizedBy(applyTask)
         }
     }
 }

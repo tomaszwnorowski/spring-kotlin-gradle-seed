@@ -72,6 +72,9 @@ spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-s
 # spring cloud starters
 spring-cloud-starter = { module = "org.springframework.cloud:spring-cloud-starter" }
 
+# spring boot
+spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure" }
+
 # spring framework
 spring-framework-context = { module = "org.springframework:spring-context" }
 

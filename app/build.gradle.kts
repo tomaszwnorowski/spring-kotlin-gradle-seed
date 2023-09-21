@@ -4,10 +4,14 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":rest"))
+    // main
+    implementation(libs.spring.boot.autoconfigure)
+    runtimeOnly(project(":rest"))
 
+    // test
+    testImplementation(project(":rest"))
     testImplementation(project(":test"))
     testImplementation(libs.spring.boot.starter.webflux)
-    testImplementation(libs.test.testcontainers.core)
-    testImplementation(libs.test.testcontainers.postgresql)
+    testRuntimeOnly(libs.test.testcontainers.core)
+    testRuntimeOnly(libs.test.testcontainers.postgresql)
 }

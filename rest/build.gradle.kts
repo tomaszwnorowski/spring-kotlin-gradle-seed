@@ -4,14 +4,15 @@ plugins {
 }
 
 dependencies {
+    // main
     api(project(":core"))
     api(libs.spring.boot.starter.web)
 
     implementation(project(":module-api"))
     runtimeOnly(project(":module-embedded"))
+    runtimeOnly(libs.json.jackson.kotlin)
+    runtimeOnly(libs.json.jackson.datatype.jsr310)
 
-    implementation(libs.json.jackson.kotlin)
-    implementation(libs.json.jackson.datatype.jsr310)
-
-    implementation(testFixtures(project(":module-api")))
+    // test
+    testImplementation(testFixtures(project(":module-api")))
 }

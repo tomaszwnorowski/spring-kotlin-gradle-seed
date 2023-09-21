@@ -5,12 +5,13 @@ plugins {
 }
 
 dependencies {
+    // main
     api(project(":module-api"))
-
     implementation(project(":db"))
 
-    testImplementation(libs.test.testcontainers.core)
-    testImplementation(libs.test.testcontainers.postgresql)
+    // test
+    testRuntimeOnly(libs.test.testcontainers.core)
+    testRuntimeOnly(libs.test.testcontainers.postgresql)
 }
 
 configure<project.build.FlywayJooqCodegenExtension> {
