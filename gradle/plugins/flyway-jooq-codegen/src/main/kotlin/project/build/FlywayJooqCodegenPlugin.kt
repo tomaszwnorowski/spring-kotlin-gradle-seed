@@ -36,7 +36,7 @@ class FlywayJooqCodegenPlugin : Plugin<Project> {
         val outputDir = target.layout.buildDirectory.dir("generated/sources/jooq/main/kotlin")
 
         val flywayJooqCodegenTask = target.task("flywayJooqCodegen") {
-            inputs.files(target.files(extension.migrationsDir).filter { it.endsWith(".sql") })
+            inputs.dir(extension.migrationsDir)
                 .withPropertyName("flyway-migrations")
                 .withPathSensitivity(PathSensitivity.RELATIVE)
                 .ignoreEmptyDirectories()

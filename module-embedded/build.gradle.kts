@@ -8,6 +8,7 @@ dependencies {
     // main
     api(project(":module-api"))
     implementation(project(":db"))
+    implementation(libs.id.tsid)
 
     // test
     testRuntimeOnly(libs.test.testcontainers.core)

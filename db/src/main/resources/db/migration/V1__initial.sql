@@ -1,1 +1,1 @@
-CREATE TABLE resource (id bigint PRIMARY KEY);
+CREATE TABLE resource (id bigint PRIMARY KEY, name VARCHAR(255) not null);

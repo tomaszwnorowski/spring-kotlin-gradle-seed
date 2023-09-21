@@ -1,36 +1,37 @@
 package project.rest
 
-import io.hypersistence.tsid.TSID
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import project.module.api.CreateResourceCommand
 import project.module.api.ModuleApi
 import project.module.api.Resource
 
+data class RestCreateResource(
+    val name: String,
+) {
+    fun toCommand() = CreateResourceCommand(name)
+}
+
 data class RestResource(
     val id: String,
+    val name: String,
 )
 
 fun Resource.toRest(): RestResource =
-    RestResource(id.toLowerCase())
-
-fun RestResource.toApi(): Resource =
-    Resource(TSID.from(id))
+    RestResource(id, name)
 
 @RestController
 class ResourcesRestController(private val api: ModuleApi) {
 
     @PostMapping("/public/api/v1/resources")
-    fun create(): ResponseEntity<RestResource> =
-        ResponseEntity.ok(api.save(Resource(TSID.fast())).toRest())
+    fun create(@RequestBody request: RestCreateResource): ResponseEntity<RestResource> =
+        ResponseEntity.ok(api.save(request.toCommand()).toRest())
 
     @GetMapping("/public/api/v1/resources/{id}")
     fun get(@PathVariable id: String): ResponseEntity<RestResource> =
-        if (TSID.isValid(id)) {
-            ResponseEntity.ofNullable(api.findById(TSID.from(id))?.toRest())
-        } else {
-            ResponseEntity.notFound().build()
-        }
+        ResponseEntity.ofNullable(api.findById(id)?.toRest())
 }

@@ -3,6 +3,5 @@ plugins {
 }
 
 dependencies {
-    // main
-    api(libs.id.tsid)
+
 }

@@ -1,12 +1,15 @@
 package project.module.api
 
-import io.hypersistence.tsid.TSID
+data class CreateResourceCommand(
+    val name: String,
+)
 
 data class Resource(
-    val id: TSID,
+    val id: String,
+    val name: String,
 )
 
 interface ModuleApi {
-    fun save(resource: Resource): Resource
-    fun findById(id: TSID): Resource?
+    fun save(command: CreateResourceCommand): Resource
+    fun findById(id: String): Resource?
 }
