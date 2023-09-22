@@ -30,3 +30,13 @@ runtime dependency when the application is started. This separation achieves fol
 * :shower: clean separation between part of the module that is intended to be used by the client code and internal implementation
 * :rocket: faster built time of the whole project when changes impact only the implementation of the module
 * :electric_plug: allows to easily swap in/out different implementation (e.g. replace embedded implementation with a call to http service)
+
+## :computer: REST API
+Although it may be feasible to divide each module into three distinct components, namely API, implementation,
+and protocol, instead of the recommended two components, this approach may result in an unnecessary burden for small
+to medium-sized projects. Some cross-cutting concerns, such as security, tracing, and monitoring, benefit from looking
+at the REST API as a whole. Moreover, from an API client perspective, it's desirable to interact with a API that is
+consistent in terms of naming conventions, versioining and error handling rather than be surprised that separate parts
+of the API behave differently. Furthermore, by running tests of multiple modules in parallel, it is possible to
+encounter issues with starting servers on the same port, sharing or excessively utilizing system resources. Therefore,
+it is recommended to begin with a single REST API module that aggregates and exposes other modules.
