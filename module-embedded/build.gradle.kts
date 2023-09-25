@@ -7,8 +7,9 @@ plugins {
 dependencies {
     // main
     api(project(":module-api"))
-    implementation(project(":db"))
     implementation(libs.id.tsid)
+    implementation(libs.spring.boot.starter.jooq)
+    runtimeOnly(project(":db"))
 
     // test
     testRuntimeOnly(libs.test.testcontainers.core)
