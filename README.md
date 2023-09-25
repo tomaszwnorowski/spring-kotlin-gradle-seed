@@ -43,15 +43,15 @@ resources. Therefore, it is recommended to begin with a single REST API module t
 
 ## :floppy_disk: Database
 There are multiple ways of achieving the separation of database access in the context of multiple modules. On one end of
-the spectrum, we have the possibility of connecting to a physically separate database, which ensures no accidental
-coupling (e.g., joins between tables owned by separate modules, transactions spanning across multiple modules) can
-happen. On the other end of the spectrum, we have solutions more in the spirit of multiplexing, which boils down to
+the spectrum, we have the possibility of connecting to a physically separate database, which eliminates the risk of
+accidental coupling (e.g., joins between tables owned by separate modules, transactions spanning across multiple modules).
+On the other end of the spectrum, we have solutions more in the spirit of multiplexing, which boils down to
 using separate logical databases or schemas. The latter also ensures accidental coupling on the database layer is less
 likely, but it's not as strict as the first approach. Since setting up a separate physical database for each module
 introduces a lot of overhead, the logical separation seems like a reasonable compromise. However, even this approach
 faces plenty of challenges:
-* :truck: schema migration and code generation (e.g. Jooq) tooling needs support and be configured to handle multiple schemas
-* :collision: failure to migrate a subset of schemas leads to problematic application state and needs to be handled with care
+* :truck: schema migration and code generation (e.g. Jooq) tools need to support multiple schemas
+* :collision: failure to migrate a subset of schemas leads to a lot of issues and needs to be handled with care
 * :slot_machine: application needs to handle connecting to, and switching between multiple schemas (in the case of spring multiple schemas
 means either using multiple data sources with separate connection pools or even a lower-level approach of setting the
 schema on connections acquired from the pool)
