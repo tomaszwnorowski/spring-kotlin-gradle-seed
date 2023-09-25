@@ -33,10 +33,40 @@ runtime dependency when the application is started. This separation achieves fol
 
 ## :computer: REST API
 Although it may be feasible to divide each module into three distinct components, namely API, implementation,
-and protocol, instead of the recommended two components, this approach may result in an unnecessary burden for small
-to medium-sized projects. Some cross-cutting concerns, such as security, tracing, and monitoring, benefit from looking
-at the REST API as a whole. Moreover, from an API client perspective, it's desirable to interact with a API that is
-consistent in terms of naming conventions, versioning and error handling rather than be surprised that separate parts
-of the API behave differently. Furthermore, by running tests of multiple modules in parallel, it is possible to
-encounter issues with starting servers on the same port, sharing or excessively utilizing system resources. Therefore,
-it is recommended to begin with a single REST API module that aggregates and exposes other modules.
+and protocol, instead of the [recommended](#tv-module-api) two components, this approach may result in an unnecessary
+burden for small  to medium-sized projects. Some cross-cutting concerns, such as security, tracing, and monitoring,
+benefit from looking  at the REST API as a whole. Moreover, from an API client perspective, it's desirable to interact
+with an API that is consistent in terms of naming conventions, versioning and error handling rather than be surprised
+that separate parts of the API behave differently. Furthermore, by running tests of multiple modules in parallel, it
+is possible to encounter issues with starting servers on the same port, sharing or excessively utilizing system
+resources. Therefore, it is recommended to begin with a single REST API module that aggregates and exposes other modules.
+
+## :floppy_disk: Database
+There are multiple ways of achieving the separation of database access in the context of multiple modules. On one end of
+the spectrum, we have the possibility of connecting to a physically separate database, which ensures no accidental
+coupling (e.g., joins between tables owned by separate modules, transactions spanning across multiple modules) can
+happen. On the other end of the spectrum, we have solutions more in the spirit of multiplexing, which boils down to
+using separate logical databases or schemas. The latter also ensures accidental coupling on the database layer is less
+likely, but it's not as strict as the first approach. Since setting up a separate physical database for each module
+introduces a lot of overhead, the logical separation seems like a reasonable compromise. However, even this approach
+faces plenty of challenges:
+* :truck: schema migration and code generation (e.g. Jooq) tooling needs support and be configured to handle multiple schemas
+* :collision: failure to migrate a subset of schemas leads to problematic application state and needs to be handled with care
+* :slot_machine: application needs to handle connecting to, and switching between multiple schemas (in the case of spring multiple schemas
+means either using multiple data sources with separate connection pools or even a lower-level approach of setting the
+schema on connections acquired from the pool)
+* :ticket: application has to specify in context of which schema given part of the request should happen (by either transferring
+this information explicitly in method signatures or implicitly storing it in thread local)
+* :passport_control: in case of specifying multiple data sources as beans, spring requires the one of them is primary and referencing rest
+of them requires qualifier
+* :warning: in the case of specifying multiple data sources as beans, spring boot starters that depend on the data source will configure
+themselves with just one of them (primary)
+* :ocean: in the case of using multiple data sources a care needs to be taken not to overwhelm database with the number of connections
+
+Considering that the primary goal of the separation is the ability to promote modules to become services, it seems like
+a huge cost to pay for this flexibility. This leads to the third alternative of using a table (or database object in
+general) naming convention (e.g., by adding a prefix to each table) that makes it clear to which domain they belong.
+However, the policy of not joining tables belonging to multiple domains or avoiding transactions spanning across
+multiple modules won't be easily enforceable. It might require using tools like ArchUnit to discover unwanted
+dependencies during build time or SQL execution listeners that would be able to tell which tables are being accessed
+and throw an exception if necessary.
