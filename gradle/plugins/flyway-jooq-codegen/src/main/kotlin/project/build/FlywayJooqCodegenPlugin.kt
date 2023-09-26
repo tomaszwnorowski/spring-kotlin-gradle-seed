@@ -6,7 +6,6 @@ import org.gradle.api.Project
 import org.gradle.api.file.Directory
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.provider.SetProperty
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.withType
