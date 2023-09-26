@@ -69,4 +69,6 @@ general) naming convention (e.g., by adding a prefix to each table) that makes i
 However, the policy of not joining tables belonging to multiple domains or avoiding transactions spanning across
 multiple modules won't be easily enforceable. It might require using tools like ArchUnit to discover unwanted
 dependencies during build time or SQL execution listeners that would be able to tell which tables are being accessed
-and throw an exception if necessary.
+and throw an exception if necessary. Moreover, schema migration scripts that are module specific will need to be
+interleaved with each-other. Therefore, it's also recommended to prefix migration scripts with the module name that
+they are impacting. 
