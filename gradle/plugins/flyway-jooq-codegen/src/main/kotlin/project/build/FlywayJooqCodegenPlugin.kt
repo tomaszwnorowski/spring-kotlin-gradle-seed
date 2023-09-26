@@ -25,7 +25,7 @@ private const val DEFAULT_DOCKER_IMAGE = "postgres:15.0"
 
 interface FlywayJooqCodegenExtension {
     val migrationsDir: DirectoryProperty
-    val tables: SetProperty<String>
+    val modulePrefix: Property<String>
     val packageName: Property<String>
     val dockerImage: Property<String>
 }
@@ -48,7 +48,7 @@ class FlywayJooqCodegenPlugin : Plugin<Project> {
                 with(extension) {
                     container(dockerImage.getOrElse(DEFAULT_DOCKER_IMAGE)) {
                         migrate(migrationsDir.get())
-                        generate(outputDir.get(), tables.get(), packageName.get())
+                        generate(outputDir.get(), modulePrefix.get(), packageName.get())
                     }
                 }
             }
@@ -74,7 +74,7 @@ class FlywayJooqCodegenPlugin : Plugin<Project> {
             .load()
             .migrate()
 
-    private fun PostgreSQLContainer<*>.generate(location: Directory, tables: Set<String>, packageName: String) =
+    private fun PostgreSQLContainer<*>.generate(location: Directory, modulePrefix: String, packageName: String) =
         GenerationTool.generate(
             Configuration()
                 .withLogging(Logging.WARN)
@@ -91,7 +91,7 @@ class FlywayJooqCodegenPlugin : Plugin<Project> {
                         .withDatabase(
                             Database()
                                 .withExcludes("flyway_schema_history")
-                                .withIncludes(tables.joinToString("|"))
+                                .withIncludes("^$modulePrefix.*")
                                 .withInputSchema("public")
                                 .withOutputSchemaToDefault(true)
                         )

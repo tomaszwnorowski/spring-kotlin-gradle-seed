@@ -18,7 +18,7 @@ dependencies {
 
 configure<project.build.FlywayJooqCodegenExtension> {
     packageName.set("project.module.embedded.jooq.codegen")
-    tables.add("resource")
+    modulePrefix.set("module")
 }
 
 sourceSets {

@@ -5,14 +5,14 @@ import org.jooq.DSLContext
 import project.module.api.CreateResourceCommand
 import project.module.api.ModuleApi
 import project.module.api.Resource
-import project.module.embedded.jooq.codegen.tables.records.ResourceRecord
-import project.module.embedded.jooq.codegen.tables.references.RESOURCE
+import project.module.embedded.jooq.codegen.tables.records.ModuleResourceRecord
+import project.module.embedded.jooq.codegen.tables.references.MODULE_RESOURCE
 
 private val NOT_FOUND = null
 
 class ModuleEmbedded(private val jooq: DSLContext) : ModuleApi {
     override fun save(command: CreateResourceCommand): Resource =
-        jooq.insertInto(RESOURCE)
+        jooq.insertInto(MODULE_RESOURCE)
             .set(command.toRecord())
             .returning()
             .fetchSingle { it.toResource() }
@@ -25,13 +25,13 @@ class ModuleEmbedded(private val jooq: DSLContext) : ModuleApi {
         }
 
     private fun findByTsid(id: TSID): Resource? =
-        jooq.selectFrom(RESOURCE)
-            .where(RESOURCE.ID.eq(id.toLong()))
+        jooq.selectFrom(MODULE_RESOURCE)
+            .where(MODULE_RESOURCE.ID.eq(id.toLong()))
             .fetchOne { it!!.toResource() }
 
-    private fun CreateResourceCommand.toRecord(): ResourceRecord =
-        ResourceRecord(TSID.fast().toLong(), name)
+    private fun CreateResourceCommand.toRecord(): ModuleResourceRecord =
+        ModuleResourceRecord(TSID.fast().toLong(), name)
 
-    private fun ResourceRecord.toResource(): Resource =
+    private fun ModuleResourceRecord.toResource(): Resource =
         Resource(TSID.from(this.id!!).toLowerCase(), name!!)
 }
