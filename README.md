@@ -42,8 +42,8 @@ is possible to encounter issues with starting servers on the same port, sharing 
 resources. Therefore, it is recommended to begin with a single REST API module that aggregates and exposes other modules.
 
 > **Note**  
-> In the case that use cases logic is complex (e.g. utilizes multiple modules) it should be placed in separate module
-> that encapsulates this logic.
+> If the use case logic is complex (e.g. utilizes multiple modules) it should be placed in separate module that
+> encapsulates it.
 
 ## :floppy_disk: Database
 There are multiple ways of achieving the separation of database access in the context of multiple modules. On one end of
