@@ -43,7 +43,7 @@ resources. Therefore, it is recommended to begin with a single REST API module t
 
 > **Note**  
 > In the case that use cases logic is complex (e.g. utilizes multiple modules) it should be placed in separate module
-> that encapsulate this logic.
+> that encapsulates this logic.
 
 ## :floppy_disk: Database
 There are multiple ways of achieving the separation of database access in the context of multiple modules. On one end of
