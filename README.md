@@ -41,6 +41,10 @@ that separate parts of the API behave differently. Furthermore, by running tests
 is possible to encounter issues with starting servers on the same port, sharing or excessively utilizing system
 resources. Therefore, it is recommended to begin with a single REST API module that aggregates and exposes other modules.
 
+> **Note**  
+> In the case that use cases logic is complex (e.g. utilizes multiple modules) it should be placed in separate module
+> that encapsulate this logic.
+
 ## :floppy_disk: Database
 There are multiple ways of achieving the separation of database access in the context of multiple modules. On one end of
 the spectrum, we have the possibility of connecting to a physically separate database, which eliminates the risk of
