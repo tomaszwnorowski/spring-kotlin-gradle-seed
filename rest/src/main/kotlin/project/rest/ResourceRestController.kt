@@ -24,7 +24,7 @@ data class RestResource(
 )
 
 fun ModuleResource.toRest(): RestResource =
-    RestResource(id.value, name)
+    RestResource(id.external, name)
 
 @RestController
 @RequestMapping("/public/api/v1/resources")

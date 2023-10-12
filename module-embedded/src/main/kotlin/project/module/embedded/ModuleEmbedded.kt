@@ -1,6 +1,5 @@
 package project.module.embedded
 
-import io.hypersistence.tsid.TSID
 import org.jooq.DSLContext
 import project.core.ResourceId
 import project.module.api.EphemeralModuleResource
@@ -18,15 +17,12 @@ class ModuleEmbedded(private val jooq: DSLContext) : ModuleApi {
 
     override fun findById(id: ResourceId): ModuleResource? =
         jooq.selectFrom(MODULE_RESOURCE)
-            .where(MODULE_RESOURCE.ID.eq(id.toDatabaseId()))
+            .where(MODULE_RESOURCE.ID.eq(id.internal))
             .fetchOne { it!!.toResource() }
 
-    private fun ResourceId.toDatabaseId(): Long =
-        TSID.from(value).toLong()
-
     private fun EphemeralModuleResource.toRecord(): ModuleResourceRecord =
-        ModuleResourceRecord(ResourceId.generate().toDatabaseId(), name)
+        ModuleResourceRecord(ResourceId.generate().internal, name)
 
     private fun ModuleResourceRecord.toResource(): ModuleResource =
-        ModuleResource(ResourceId(TSID.from(id!!).toLowerCase()), name!!)
+        ModuleResource(ResourceId(id!!), name!!)
 }
