@@ -32,7 +32,7 @@ class ResourcesRestControllerTest {
     fun `GIVEN existing resource id WHEN get resource THEN return resource`() {
         every { api.findById(resource.id) } returns resource
 
-        mvc.perform(get("/public/api/v1/resources/${resource.id}"))
+        mvc.perform(get("/public/api/v1/resources/${resource.id.value}"))
             .andExpect(status().isOk)
             .andExpect(content().json(json.writeValueAsString(resource.toRest())))
     }
@@ -41,7 +41,7 @@ class ResourcesRestControllerTest {
     fun `GIVEN missing resource id WHEN get resource THEN return not found`() {
         every { api.findById(resource.id) } returns null
 
-        mvc.perform(get("/public/api/v1/resources/${resource.id}"))
+        mvc.perform(get("/public/api/v1/resources/${resource.id.value}"))
             .andExpect(status().isNotFound)
     }
 

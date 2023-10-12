@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.test.web.reactive.server.WebTestClient
-import project.rest.RestCreateResource
+import project.rest.CreateRestResource
 import project.rest.RestResource
 import project.test.tag.SmokeTest
 
@@ -37,7 +37,7 @@ class ProjectSmokeTest {
         // when
         val postResource = http.post()
             .uri(uri)
-            .bodyValue(RestCreateResource("rest"))
+            .bodyValue(CreateRestResource("rest"))
             .exchange()
             .expectStatus().isOk
             .expectBody(RestResource::class.java)

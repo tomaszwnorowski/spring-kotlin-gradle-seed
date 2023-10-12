@@ -1,15 +1,17 @@
 package project.module.api
 
-data class CreateResourceCommand(
+import project.core.ResourceId
+
+data class EphemeralModuleResource(
     val name: String,
 )
 
-data class Resource(
-    val id: String,
+data class ModuleResource(
+    val id: ResourceId,
     val name: String,
 )
 
 interface ModuleApi {
-    fun save(command: CreateResourceCommand): Resource
-    fun findById(id: String): Resource?
+    fun save(resource: EphemeralModuleResource): ModuleResource
+    fun findById(id: ResourceId): ModuleResource?
 }

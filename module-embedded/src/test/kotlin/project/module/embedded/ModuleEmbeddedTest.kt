@@ -1,12 +1,12 @@
 package project.module.embedded
 
-import io.hypersistence.tsid.TSID
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import project.module.api.CreateResourceCommand
+import project.core.ResourceId
+import project.module.api.EphemeralModuleResource
 import project.test.tag.IntegrationTest
 
 @IntegrationTest
@@ -22,7 +22,7 @@ class ModuleEmbeddedTest(@Autowired private val module: ModuleEmbedded) {
     @Test
     fun `GIVEN valid command WHEN save THEN insert and return persisted resource`() {
         // given
-        val command = CreateResourceCommand("test")
+        val command = EphemeralModuleResource("test")
 
         // when
         val resource = module.save(command)
@@ -37,7 +37,7 @@ class ModuleEmbeddedTest(@Autowired private val module: ModuleEmbedded) {
     @Test
     fun `GIVEN existing resource id WHEN findById THEN return resource`() {
         // given
-        val command = CreateResourceCommand("test")
+        val command = EphemeralModuleResource("test")
 
         // when
         val resource = module.save(command)
@@ -49,7 +49,7 @@ class ModuleEmbeddedTest(@Autowired private val module: ModuleEmbedded) {
     @Test
     fun `GIVEN not existing resource id WHEN findById THEN return null`() {
         // given
-        val resourceId = TSID.fast().toLowerCase()
+        val resourceId = ResourceId.generate()
 
         // when
         val resource = module.findById(resourceId)
